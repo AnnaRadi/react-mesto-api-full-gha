@@ -110,12 +110,12 @@ const updateAvatar = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  User.findOne({ _id: req.user._id })
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      return res.send(formatUser(user));
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -128,17 +128,16 @@ const getCurrentUser = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
       res.cookie('jwt', token, {
-        maxAge: 24 * 7 * 60 * 60,
+        maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
       })
-        .send({ message: 'Успешная авторизация' });
-    })
-    .catch((err) => {
+        .send({ message: 'Авторизация прошла успешно' });
+    }).catch((err) => {
       next(err);
     });
 };

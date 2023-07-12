@@ -7,6 +7,7 @@ export function register(email, password) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
   })
     .then(res => checkResponse(res))
@@ -21,6 +22,7 @@ export function authorize(email, password) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
   })
     .then(res => checkResponse(res))
@@ -32,13 +34,13 @@ export function authorize(email, password) {
     })
 }
 
-export function getToken(jwt) {
+export function getToken() {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${jwt}`,
     },
+    credentials: "include",
   })
     .then(res => checkResponse(res))
     .then((data) => data);

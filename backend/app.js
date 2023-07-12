@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const { login, createUser } = require('./controllers/users');
 const { validationLogin, validationCreateUser } = require('./middlewares/validations');
 const auth = require('./middlewares/auth');
@@ -22,13 +23,20 @@ app.use(extractJwt);
 
 app.use(requestLogger);
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+  methods: 'GET, PUT, PATCH, POST, DELETE',
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+}));
+
 app.post('/signin', validationLogin, login);
 app.post('/signup', validationCreateUser, createUser);
 
 app.use(auth);
 app.use(routes);
 
-mongoose.connect('mongodb://0.0.0.0/mestodb', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true });
 
 app.use(errorLogger);
 app.use(errors());
