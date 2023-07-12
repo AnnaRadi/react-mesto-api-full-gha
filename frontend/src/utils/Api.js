@@ -85,7 +85,7 @@ class Api {
 
 const api = new Api({
   // url: "https://mesto.nomoreparties.co/v1/cohort-63",
-  url: "http://localhost:4000",
+  url: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
     authorization: localStorage.getItem("jwt")
