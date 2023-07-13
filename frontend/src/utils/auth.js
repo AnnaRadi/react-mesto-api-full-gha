@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://localhost3000';
 
 export function register(email, password) {
 
@@ -54,3 +54,24 @@ function checkResponse(res) {
 
   return Promise.reject(`Ошибка: ${res.status}`)
 }
+
+export function logout() {
+  return fetch(`${BASE_URL}/logout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        response.json().then((data) => console.error(data.message));
+        throw new Error();
+      }
+    })
+    .catch((err) => {
+      throw err
+    });
+};

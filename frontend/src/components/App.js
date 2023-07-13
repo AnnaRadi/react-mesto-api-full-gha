@@ -109,11 +109,15 @@ function App() {
       })
       .catch((err) => console.log(`Ошибка: ${err}`))
   }
-
-  function onSignOut() {
-    setIsLoggedIn(false);
-    setMailName(null);
-   navigate("/signin", { replace: true });
+  async function onSignOut() {
+    try {
+      await auth.logout();
+      setIsLoggedIn(false);
+      setMailName(null);
+      navigate("/signin", { replace: true });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   function handleCardLike(card) {
