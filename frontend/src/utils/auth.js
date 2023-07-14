@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost3000';
+export const BASE_URL = 'https://api.aradion0va.nomoredomains.work'; //домен фронт
 
 export function register(email, password) {
 

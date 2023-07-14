@@ -24,7 +24,11 @@ app.use(extractJwt);
 app.use(requestLogger);
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'https://aradion0va.nomoredomains.work',
+    'http://aradion0va.nomoredomains.work',
+    'http://localhost:3000',
+  ],
   credentials: true,
   methods: 'GET, PUT, PATCH, POST, DELETE',
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
