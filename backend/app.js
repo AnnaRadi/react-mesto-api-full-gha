@@ -13,13 +13,24 @@ const handleError = require('./middlewares/handleError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
 
-const { PORT = 3000 } = process.env;
+const {
+  PORT = 3000,
+  // eslint-disable-next-line no-unused-vars
+  MONGO_URL = 'mongodb://localhost:27017',
+} = process.env;
+
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(extractJwt);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use(requestLogger);
 
@@ -40,7 +51,12 @@ app.post('/signup', validationCreateUser, createUser);
 app.use(auth);
 app.use(routes);
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true });
+// eslint-disable-next-line no-template-curly-in-string
+mongoose.connect(`${MONGO_URL}/mestodb`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  family: 4,
+});
 
 app.use(errorLogger);
 app.use(errors());

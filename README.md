@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 84.252.136.72
 
-Frontend https://...
+Frontend https://aradion0va.nomoredomains.work
 
-Backend https://...
+Backend https://api.aradion0va.nomoredomains.work
