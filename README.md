@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 84.252.136.72
+IP 84.252.136.72
 
 Frontend https://aradion0va.nomoredomains.work
 
